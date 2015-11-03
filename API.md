@@ -1,12 +1,12 @@
 # Dimensions and Bins
 
-Nanocubes is all about binning multi-dimenstional data. As a running
+Nanocubes is all about binning multi-dimensional data. As a running
 example, let's consider a table like the Chicago crime one:
 
     latitude | longitude | timestamp | type
 
 How many records in the geo-location table fall into a certain spatial
-bin? Or is of type `theft`? By efficiently pre-computing and storing
+bin? Or are of type `theft`? By efficiently pre-computing and storing
 counts or measures, nanocube can handle a good amount of records in a
 few dimensions (e.g. one or two spatial dimensions, one temporal dimension,
 a few categorical dimensions) to solve queries at interactive rates. 
@@ -18,6 +18,9 @@ nanocube. This *bin* can be either an aggregate one or a finest
 resolution one. For example, if we have a dimension for a categorical
 variable "device" represented as a two level tree, the root represents
 any device and a leaf might represent an `iPhone` or `Android`.
+
+Paths can be used either to *restrict* the search space (`r_`), or to specify
+the *anchors* (`a_`) to aggregate results on.
 
 # Target
 
@@ -33,8 +36,8 @@ hierarchy* instance, then, obviously, this path will not be visited.
 
 ## Multi-Target
 
-Sometimes we want to collect separetely values of multiple targets on
-a single dimension. For example, we might want to query multiple
+Sometimes we want to collect values of multiple targets on a single
+dimension separately. For example, we might want to query multiple
 consecutive intervals from a binary tree representation for time. Each
 interval data can be "solved" by visiting a (minimal) set of time bins
 that is a cover for it (the interval).
@@ -48,7 +51,7 @@ and their types.
 
 In this example, there are four fields with names:
 `location`, `crime`, `time`, and `count`.  The types of these fields
-are (roughly) described as: quadree with 25 levels, categorical with 1
+are (roughly) described as: quadtree with 25 levels, categorical with 1
 byte, time with 2 bytes, and unsigned integer with 4 bytes. Also
 specified for each field are the valid values of these fields.  In
 this example, we only really need to specify them for the categorical
